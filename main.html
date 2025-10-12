@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!--webpage title -->
+    <title>Happy Birthday, [Girlfriend's Name]!</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FEFBF6; 
+            color: #5C5470; 
+        }
+        .font-script {
+            font-family: 'Caveat', cursive;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Style for the interactive reason cards */ 
+        .reason-card {
+            background-color: white;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .reason-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(92, 84, 112, 0.08);
+        }
+        .reason-card .answer {
+            display: none;
+            padding-top: 1rem;
+            border-top: 1px solid #F1F1F1;
+            margin-top: 1rem;
+        }
+        .reason-card.active .answer {
+            display: block;
+        }
+        .reason-card.active .icon-plus {
+            display: none;
+        }
+        .reason-card.active .icon-minus {
+            display: block;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-[#FADADD] text-center p-6 shadow-sm">
+        <h1 class="text-4xl md:text-6xl text-[#5C5470] font-script">Happy Birthday Anu</h1>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+
+        <!-- Hero Section with Countdown -->
+        <section id="hero" class="text-center my-12 reveal">
+            <img src="pic1.jpeg" 
+                 alt="A photo of my love" class="w-full max-w-3xl mx-auto rounded-xl shadow-2xl object-cover mb-8">
+            
+            <h2 class="text-3xl md:text-5xl font-bold text-[#A87C7C] mb-4">This countdown is probably over by now, but why not!</h2>
+            <h3 class="text-5xl md:text-7xl font-script text-[#DD97B1] mb-6">Happy Birthday!</h3>
+
+            <!-- Countdown Timer -->
+            <div id="countdown" class="flex justify-center items-center space-x-2 md:space-x-6 bg-white p-6 rounded-xl shadow-lg max-w-2xl mx-auto">
+                 <div class="text-center">
+                    <div id="days" class="text-3xl md:text-5xl font-bold text-[#5C5470]">0</div>
+                    <span class="text-sm md:text-lg text-gray-500">Days</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-bold text-gray-200">:</div>
+                <div class="text-center">
+                    <div id="hours" class="text-3xl md:text-5xl font-bold text-[#5C5470]">0</div>
+                    <span class="text-sm md:text-lg text-gray-500">Hours</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-bold text-gray-200">:</div>
+                <div class="text-center">
+                    <div id="minutes" class="text-3xl md:text-5xl font-bold text-[#5C5470]">0</div>
+                    <span class="text-sm md:text-lg text-gray-500">Minutes</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-bold text-gray-200">:</div>
+                <div class="text-center">
+                    <div id="seconds" class="text-3xl md:text-5xl font-bold text-[#5C5470]">0</div>
+                    <span class="text-sm md:text-lg text-gray-500">Seconds</span>
+                </div>
+            </div>
+            <p id="birthdayMessage" class="mt-6 text-2xl text-green-600 font-bold hidden">It's your birthday! Let's celebrate!</p>
+        </section>
+
+        <!-- Interactive Photo Gallery -->
+        <section id="gallery" class="my-20 reveal">
+            <h2 class="text-6xl font-script text-[#5C5470] text-center mb-10">Our Unforgettable Moments</h2>
+            <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6">
+                <img id="gallery-image" src="" alt="Memory" class="w-full h-80 object-cover rounded-lg mb-4">
+                <div class="text-center">
+                    <h3 id="gallery-title" class="text-2xl font-bold mb-2"></h3>
+                    <p id="gallery-description" class="text-gray-600 mb-6 min-h-[4rem]"></p>
+                    <div class="flex justify-center space-x-4">
+                        <button id="prev-btn" class="bg-[#B8E0D2] hover:bg-[#A9D5C6] text-[#5C5470] font-bold py-2 px-6 rounded-full transition-colors duration-300">Previous</button>
+                        <button id="next-btn" class="bg-[#B8E0D2] hover:bg-[#A9D5C6] text-[#5C5470] font-bold py-2 px-6 rounded-full transition-colors duration-300">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What I Love About You Section -->
+        <section id="reasons" class="my-20 reveal">
+            <h2 class="text-6xl font-script text-[#5C5470] text-center mb-10">Things I Love About You</h2>
+            <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="reason-card p-6 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Your comfort</h3>
+                        <div class="text-2xl text-[#B8E0D2]">
+                            <span class="icon-plus block">+</span>
+                            <span class="icon-minus hidden">-</span>
+                        </div>
+                    </div>
+                    <p class="answer">I love how safe and at peace I feel when I'm with you.</p>
+                </div>
+                <div class="reason-card p-6 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Understanding</h3>
+                         <div class="text-2xl text-[#B8E0D2]">
+                            <span class="icon-plus block">+</span>
+                            <span class="icon-minus hidden">-</span>
+                        </div>
+                    </div>
+                    <p class="answer">I love how you understand me, even when I cant find the words</p>
+                </div>
+                <div class="reason-card p-6 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Your acceptance</h3>
+                         <div class="text-2xl text-[#B8E0D2]">
+                            <span class="icon-plus block">+</span>
+                            <span class="icon-minus hidden">-</span>
+                        </div>
+                    </div>
+                    <p class="answer">I love how you understand me, even with all my flaws. </p>
+                </div>
+                <div class="reason-card p-6 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Your passion</h3>
+                         <div class="text-2xl text-[#B8E0D2]">
+                            <span class="icon-plus block">+</span>
+                            <span class="icon-minus hidden">-</span>
+                        </div>
+                    </div>
+                    <p class="answer">I love the way your eyes light up when you're talking about something you are passionate about</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- A letter Section -->
+        <section id="message" class="my-20 text-center reveal">
+            <h2 class="text-6xl font-script text-[#5C5470] text-center mb-8">A Letter To You</h2>
+            <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-xl">
+                <p class="text-lg text-left leading-relaxed">
+                    My Dearest Anu,
+                    <br><br>
+                    On your special day, I wanted to tell you how much you mean to me. Please do not judge that from the looks of this website, you know I'm bad with creative stuff.
+                    <br><br>
+                    I want to thank you for being someone who is always there, always listens, always loves and cares. Thanks for making me feel everyday ki at least ye kahi nahi jaari. And please come banglore with me boss, maje karu aapan khup.
+                    <br><br>
+                    Happy Birthday, love. Have lot's of fun, I am sorry I couldn't be there (but you never know hehe).
+                    <br><br>
+                    Roar,
+                    <br>
+                    <span class="font-script text-4xl text-[#DD97B1] mt-4 block">Omkar</span>
+                </p>
+            </div>
+        </section>
+        
+        <!-- Playlist Section -->
+        <section id="playlist" class="my-20 reveal">
+            <h2 class="text-6xl font-script text-[#5C5470] text-center mb-10">A Playlist For You</h2>
+            <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6">
+                <div class="bg-gray-100 w-full h-96 rounded-lg flex items-center justify-center">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Yn8pPtVHVbbzAmAuK3uk6?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 bg-[#FADADD] mt-12">
+        <p class="text-[#5C5470]">Made with ❤️ by <span class="font-bold">Omkar</span></p>
+    </footer>
+
+
+    <script>
+        // --- Countdown Timer Logic ---
+        const birthday = "October 18, 2025 00:00:00"; 
+        const countdownDate = new Date(birthday).getTime();
+
+        const countdownElement = document.getElementById('countdown');
+        const birthdayMessageElement = document.getElementById('birthdayMessage');
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                if (countdownElement) countdownElement.classList.add('hidden');
+                if (birthdayMessageElement) birthdayMessageElement.classList.remove('hidden');
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            if(daysEl) daysEl.innerHTML = days;
+            if(hoursEl) hoursEl.innerHTML = hours;
+            if(minutesEl) minutesEl.innerHTML = minutes;
+            if(secondsEl) secondsEl.innerHTML = seconds;
+
+        }, 1000);
+
+
+        // --- Photo Gallery Logic ---
+
+        const memories = [
+            {
+                image: "pic2.jpeg",
+                title: "The Day We Met",
+                description: "We couldn't get good pics that day, but who cares. It was a great way to celebrate Muharram though."
+            },
+            {
+                image: "pic3.jpeg",
+                title: "Our First Trip Together",
+                description: "The weather, the waterfalls, the canvas, the Anek, and you. Couldn't have wished for a better day"
+            },
+            {
+                image: "pic4.jpeg",
+                title: "Us before we become us",
+                description: "Freak matched, kuch toh planning ki thi be almighty ne."
+            },
+            {
+                image: "pic5.jpeg",
+                title: "Dono freaks",
+                description: "How can one be so comforatble to do anything with someone. "
+            },
+            {
+                image: "pic6.jpeg",
+                title: "About you...",
+                description: '"And there was something bout you that now I cant remember, its the same damn thing that made my heart surrender."'
+            }
+        ];
+
+        let currentMemoryIndex = 0;
+        const galleryImage = document.getElementById('gallery-image');
+        const galleryTitle = document.getElementById('gallery-title');
+        const galleryDescription = document.getElementById('gallery-description');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function showMemory(index) {
+            const memory = memories[index];
+            galleryImage.src = memory.image;
+            galleryTitle.textContent = memory.title;
+            galleryDescription.textContent = memory.description;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentMemoryIndex = (currentMemoryIndex - 1 + memories.length) % memories.length;
+            showMemory(currentMemoryIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentMemoryIndex = (currentMemoryIndex + 1) % memories.length;
+            showMemory(currentMemoryIndex);
+        });
+        
+        showMemory(currentMemoryIndex);
+        
+
+        // --- "Things I Love" Accordion Logic ---
+        const reasonCards = document.querySelectorAll('.reason-card');
+        reasonCards.forEach(card => {
+            card.addEventListener('click', () => {
+    
+                card.classList.toggle('active');
+            });
+        });
+
+
+        // --- Scroll Animation Logic ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+    </script>
+</body>
+</html>
+
+
